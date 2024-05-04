@@ -18,3 +18,4 @@ const createUser = () => __awaiter(void 0, void 0, void 0, function* () { });
 exports.createUser = createUser;
 const deleteUser = () => __awaiter(void 0, void 0, void 0, function* () { });
 exports.deleteUser = deleteUser;
+//# sourceMappingURL=userController.js.map

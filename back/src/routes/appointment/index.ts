@@ -1,14 +1,14 @@
-import { Router, Request, Response } from "express";
-import { getAllServices, postServiceController, getServicesByIdController, putUserController } from "../../controllers/service";
+import { Router } from "express";
+import { getAllAppointments, getAppointmentByIdController, postAppointmentController, putAppointmentController } from "../../controllers/appointment";
 
 const appointments: Router = Router()
 
-appointments.get("/", getAllServices)
+appointments.get("/", getAllAppointments)
 
-appointments.get("/:id", getServicesByIdController)
+appointments.get("/:id", getAppointmentByIdController)
 
-appointments.post("/register", postServiceController)
+appointments.post("/register", postAppointmentController)
 
-appointments.post("/login", putUserController)
+appointments.post("/login", putAppointmentController)
 
 export default appointments

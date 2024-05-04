@@ -4,3 +4,4 @@ exports.DB = exports.PORT = void 0;
 require("dotenv/config");
 exports.PORT = process.env.PORT;
 exports.DB = process.env.DB;
+//# sourceMappingURL=envs.js.map

@@ -1,15 +1,13 @@
-import { Router, Request, Response } from "express";
-
+import { Router } from "express";
+import { getAllUsers, getUserByIdController, postUserController, putUserController } from "../../controllers/user";
 const routeUser: Router = Router()
 
-routeUser.get("/", (req:Request, res:Response)=>{
-    res.status(200).send("todos los usuarios se subiran proximamente")
-})
+routeUser.get("/", getAllUsers)
 
-routeUser.get("/:id", ()=>{})
+routeUser.get("/:id", getUserByIdController)
 
-routeUser.post("/register", ()=>{})
+routeUser.post("/register", postUserController)
 
-routeUser.post("/login", ()=>{})
+routeUser.post("/login", putUserController)
 
 export default routeUser;

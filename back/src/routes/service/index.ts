@@ -1,10 +1,9 @@
-import { Router, Request, Response } from "express";
+import { Router,  } from "express";
+import { getAllServiceService, getServiceByIdService, postServiceService, putServiceService } from "../../services/services";
 
 const serviceRoute: Router = Router()
 
-serviceRoute.get("/", (req:Request, res:Response)=>{
-    res.status(200).send("los servicios se subiran proximamente")
-})
+serviceRoute.get("/", )
 
 serviceRoute.get("/:id", ()=>{})
 

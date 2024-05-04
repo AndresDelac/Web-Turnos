@@ -8,3 +8,4 @@ const envs_1 = require("./config/envs");
 server_1.default.listen(envs_1.PORT, () => {
     console.log(`server listening on port ${envs_1.PORT}`);
 });
+//# sourceMappingURL=index.js.map

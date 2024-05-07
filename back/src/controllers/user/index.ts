@@ -10,8 +10,9 @@ function getUserByIdController(req:Request, res:Response){
 }
 
 function postUserController(req:Request, res:Response){
-    const service = req.body;
-    res.send(201).json({message: "este es el controlador de post", body: service})
+    const user = req.body;
+    postUserService(user)
+    res.send(201).json({message: "este es el controlador de post", body: user})
 }
 
 function putUserController (req:Request, res:Response){

@@ -1,7 +1,12 @@
-import server from "./server/server";
-import { PORT } from "./config/envs";
+import "reflect-metadata"
+import { serverInitialize } from "./server"
+import { AppDataSource } from "./config"
 
-server.listen(PORT, () => {
-    console.log(`server listening on port ${PORT}` );
-    
+AppDataSource.initialize()
+.then (()=> {
+    console.log("DataBase connected");
+    serverInitialize()
+})
+.catch ((err) => {
+    console.error(err);
 })

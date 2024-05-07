@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.putUserController = exports.postUserController = exports.getUserByIdController = exports.getAllUsers = void 0;
+const user_1 = require("../../services/user");
 function getAllUsers(req, res) {
     res.status(200).send("estos son los usuarios");
 }
@@ -10,8 +11,9 @@ function getUserByIdController(req, res) {
 }
 exports.getUserByIdController = getUserByIdController;
 function postUserController(req, res) {
-    const service = req.body;
-    res.send(201).json({ message: "este es el controlador de post", body: service });
+    const user = req.body;
+    (0, user_1.postUserService)(user);
+    res.send(201).json({ message: "este es el controlador de post", body: user });
 }
 exports.postUserController = postUserController;
 function putUserController(req, res) {

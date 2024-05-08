@@ -4,6 +4,7 @@
         "outDir": "./dist",
         "rootDir": "./src",
         "target": "ES2016",
+        "lib": ["ES2015", "ES2016"],
         "strict": true,
         "esModuleInterop": true,
         "removeComments": true,

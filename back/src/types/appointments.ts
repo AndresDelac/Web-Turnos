@@ -1,3 +1,4 @@
+import { strict } from "assert"
 import { IUser } from "./user"
 
 export enum Status{
@@ -13,4 +14,11 @@ export interface IAppointments {
     status: Status,
     userId: IUser["id"],
     serviceId: number
+}
+
+export class AppointmentDto{
+    date: Date
+    time: number
+    description: string
+    userId:number
 }

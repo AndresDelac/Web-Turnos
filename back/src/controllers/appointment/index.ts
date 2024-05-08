@@ -1,22 +1,46 @@
 import { Request, Response } from "express";
 import { getAllAppointmentsService, getAppointmentByIdService, postAppointmentService, putAppointmentService } from "../../services/appointments";
+import { AppointmentDto } from "../../types";
 
-function getAllAppointments (req: Request, res:Response){
-    res.status(200).send("todas las citas")
+async function getAllAppointments (req: Request, res:Response){
+   try {
+    const { userId } = req.query
+    const appointments = await getAllAppointmentsService(userId as string);
+    res.status(200).json(appointments)
+   } catch (error:any) {
+    throw new Error(error)
+   }
 }
 
-function getAppointmentByIdController(req:Request, res:Response){
-    res.status(200).send("este es id de tus citas")
+async function getAppointmentByIdController(req:Request, res:Response){
+    try {
+        const { id } = req.params
+        const appointment = await getAppointmentByIdService(Number(id));
+        res.status(200).json(appointment)
+    } catch (error:any) {
+        res.status(404).json({ message: error.message })
+    }
 }
 
-function postAppointmentController(req:Request, res:Response){
-    const service = req.body;
-    res.send(201).json({message: "este es servcio de post", body: service})
+async function postAppointmentController(req:Request, res:Response){
+    try {
+        const appointment : AppointmentDto = req.body;
+        const newAppointment = await postAppointmentService(appointment);
+        res.status(201).json({ message: "Appointment created", cita: newAppointment });
+    } catch (error:any) {
+        
+    }
 }
 
-function putAppointmentController (req:Request, res:Response){
-    const user = req.body
-    res.send(201).json({message: "este es el servicio de put Appointment", body:user})
+async function putAppointmentController (req:Request, res:Response){
+    try {
+        const { id } = req.params;
+        const appointment = await putAppointmentService(Number(id));
+        res.status(201).json({ message: "Appointment updated", date: appointment })
+
+    } catch (error:any) {
+        res.status(404).json({ message: error.message })
+    }
 }
 
 export {

@@ -1,32 +1,45 @@
-import { users } from "../../db/user"
-import { IUser } from "../../types/user"
-import { generateCredential } from "../credentials" 
+import { InsertResult } from "typeorm"
+import { AppDataSource } from "../../config"
+// import { users } from "../../db/user"
+import { User } from "../../entities/user"
+import { IUser, UserDto } from "../../types/user"
+import { checkCredential, generateCredential } from "../credentials" 
+import { ICredential } from "../../types"
 
-function getAllUsersService (){
-    return "este es el servicio de los usuarios usuarios 3 36 20"
+async function getAllUsersService (): Promise<User[]>{
+   try {
+     const users = await AppDataSource.manager.getRepository(User).find({
+        relations: ["credentials", "appointment"],
+     });
+     return users;
+   } catch (error: any) {
+    throw new Error (error)
+   }
 }
 
-function getUserByIdService (){
-    return "este es el id de tu usuario"
+async function getUserByIdService (id: number): Promise<User | null>{
+   try {
+    const user = await AppDataSource.manager.findOneBy(User, { id });
+    
+    return user
+   }catch (error: any) {
+    throw new Error(error)
+   }
 }
 
-async function postUserService (user: any): Promise<IUser>{
+async function postUserService (user: UserDto): Promise<User | InsertResult>{
     try{
-        const credentialId = generateCredential({
+        const credentialId = await generateCredential({
         username: user.username,
         password: user.password 
-    })
-    const id = user.length + 1;
-    const newUser: IUser = {
-        id: id,
+    });
+    const newUser = AppDataSource.manager.save(User, {
         name: user.name,
         email: user.email,
         birthdate: user.birthdate,
         dni_number: user.dni_number,
-        appoinments: [],
-        credentialsId: credentialId,
-    };
-    users.push(newUser)
+        credentials: credentialId,
+    });
     return newUser
 }       
 catch(error: any ){
@@ -35,8 +48,12 @@ catch(error: any ){
 };
 
 
-function putUserService (){
-    return "este es el servicio de usuario put"
+async function putUserService (credentials: ICredential){
+    try {
+        return await checkCredential(credentials);
+    } catch (error: any) {
+        throw new Error(error)
+    }
 }
 
 export {

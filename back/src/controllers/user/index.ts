@@ -1,23 +1,46 @@
 import { Request, Response } from "express";
 import { getAllUsersService, getUserByIdService, postUserService, putUserService } from "../../services/user";
+import { CredentialDto } from "../../types";
 
-function getAllUsers (req: Request, res:Response){
-    res.status(200).send("estos son los usuarios")
+async function getAllUsers (req: Request, res:Response){
+    try {
+        const users = await getAllUsersService();
+        res.status(200).json(users)
+       } catch (error: any) {
+        res.status(404).json({ message: error.message })
+       }
 }
 
-function getUserByIdController(req:Request, res:Response){
-    res.status(200).send("este es id de tu usuario")
+ async function getUserByIdController(req:Request, res:Response){
+    try {
+        const {id} = req.params;
+        const user = await getUserByIdService(Number(id));
+        if (user) res.status(200).json(user)
+            else res.status(404).json({ message: "User not Found" })
+       } catch (error: any) {
+        res.status(404).json({ message: error.message })
+       }
 }
 
-function postUserController(req:Request, res:Response){
-    const user = req.body;
-    postUserService(user)
-    res.send(201).json({message: "este es el controlador de post", body: user})
+async function postUserController(req:Request, res:Response){
+    try {
+        const user = req.body;
+        const newUser = await postUserService(user);
+        res.status(201).json({ message: "User registered", newUser });
+
+    } catch (error: any) {
+        res.status(400).json({ message: error.message })
+    }
 }
 
-function putUserController (req:Request, res:Response){
-    const user = req.body
-    res.send(201).json({message: "este es el servicio de put User", body:user})
+async function putUserController (req:Request, res:Response){
+    try {
+        const credentials: CredentialDto = req.body;
+        const id = await putUserService(credentials);
+        res.status(201).json({ message: "User logged", id })
+    } catch (error: any) {
+        res.status(400).json({ message: error.message })
+    }
 }
 
 export {

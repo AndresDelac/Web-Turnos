@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn
 import { Credential } from "./credential";
 import { Appointment } from "./appointment";
 
+
 @Entity({ name: "user" })
     export class User{
     @PrimaryGeneratedColumn()
@@ -21,9 +22,9 @@ import { Appointment } from "./appointment";
 
     @OneToOne(()=> Credential)
     @JoinColumn({ name: "credentialsId" })
-    credentials: Credential
+    credentials: Credential | Credential["id"];
 
-    @OneToMany(()=> Appointment, appointment=> appointment.user)
-    appointment: Appointment[];
+    @OneToMany(() => Appointment, (appointment) => appointment.user)
+    appointments: Appointment[];
 
 }

@@ -9,6 +9,7 @@ import {
 } from "./envs"
 import { Credential } from "../entities/credential";
 import { User } from "../entities/user";
+import { Appointment } from "../entities/appointment";
 
 
 export const AppDataSource = new DataSource({
@@ -20,7 +21,7 @@ export const AppDataSource = new DataSource({
     database: DB_NAME,
     synchronize: true,
     logging: true,
-    entities: [User, Credential],
+    entities: [User, Credential, Appointment],
     subscribers: [],
     migrations: [],
 })

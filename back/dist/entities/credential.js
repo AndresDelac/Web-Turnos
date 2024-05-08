@@ -19,7 +19,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Credential.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true, type: "text", length: 50 }),
+    (0, typeorm_1.Column)({ unique: true, type: "varchar", length: 200 }),
     __metadata("design:type", String)
 ], Credential.prototype, "username", void 0);
 __decorate([

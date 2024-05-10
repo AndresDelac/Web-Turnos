@@ -6,16 +6,17 @@ import { IUser, UserDto } from "../../types/user"
 import { checkCredential, generateCredential } from "../credentials" 
 import { ICredential } from "../../types"
 
-async function getAllUsersService (): Promise<User[]>{
+async function getAllUsersService (): Promise<User[]> {
    try {
      const users = await AppDataSource.manager.getRepository(User).find({
-        relations: ["credentials", "appointment"],
+        relations: ["credentials", "appointments"],
      });
      return users;
    } catch (error: any) {
-    throw new Error (error)
+    throw new Error ("Error al obtener todos los usuarios");
    }
 }
+
 
 async function getUserByIdService (id: number): Promise<User | null>{
    try {

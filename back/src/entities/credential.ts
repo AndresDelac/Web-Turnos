@@ -9,5 +9,5 @@ export class Credential {
     username: string
 
     @Column({type: "text"})
-    pasaword: string
+    password: string
 }

@@ -1,12 +1,12 @@
 import './App.css'
-import MisTurnos from './views/MisTurnos'
+import Appointments from './views/Appointments'
 
 function App() {
   return (
     <div>
 
     <h1>Holaa</h1>
-    <MisTurnos />
+    <Appointments />
     </div>
   )
 }

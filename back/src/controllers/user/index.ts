@@ -7,7 +7,7 @@ async function getAllUsers (req: Request, res:Response){
         const users = await getAllUsersService();
         res.status(200).json(users)
        } catch (error: any) {
-        res.status(404).json({ message: error.message })
+        res.status(404).json({ message: "Users not found" })
        }
 }
 

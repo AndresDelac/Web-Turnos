@@ -7,8 +7,8 @@ appointments.get("/", getAllAppointments)
 
 appointments.get("/:id", getAppointmentByIdController)
 
-appointments.post("/register", postAppointmentController)
+appointments.post("/schedule", postAppointmentController)
 
-appointments.post("/login", putAppointmentController)
+appointments.post("/update", putAppointmentController)
 
 export default appointments

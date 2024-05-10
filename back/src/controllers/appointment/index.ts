@@ -8,7 +8,7 @@ async function getAllAppointments (req: Request, res:Response){
     const appointments = await getAllAppointmentsService(userId as string);
     res.status(200).json(appointments)
    } catch (error:any) {
-    throw new Error(error)
+    res.status(404).json({ message: error.message})
    }
 }
 
@@ -28,9 +28,10 @@ async function postAppointmentController(req:Request, res:Response){
         const newAppointment = await postAppointmentService(appointment);
         res.status(201).json({ message: "Appointment created", cita: newAppointment });
     } catch (error:any) {
-        
+        res.status(400).json({message: error.message})
     }
 }
+
 
 async function putAppointmentController (req:Request, res:Response){
     try {

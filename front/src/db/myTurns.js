@@ -1,6 +1,6 @@
-const turns = [{
+export const turns = [{
     id : 1,
-    date: 9-5-24,
+    date: 9,
     time: 1200,
     description: "Reserva para testear juego GTA VI",
     status: "Active",
@@ -9,7 +9,7 @@ const turns = [{
 },
 {
     id : 2,
-    date: 10-5-24,
+    date: 10,
     time: 100,
     description: "Reserva para testear juego Zelda",
     status: "Active",
@@ -18,4 +18,3 @@ const turns = [{
 }
 ]
 
-export default turns

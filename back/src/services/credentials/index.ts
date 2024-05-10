@@ -24,7 +24,7 @@ async function checkCredential({username, password}: ICredential): Promise<numbe
         if (!credential) {
             throw new Error("User not found")
         }
-        const isValid = comparePassword(password, credential.pasaword);
+        const isValid = comparePassword(password, credential.password);
         if (!isValid) {
             throw new Error("Invalid credentials")
         }

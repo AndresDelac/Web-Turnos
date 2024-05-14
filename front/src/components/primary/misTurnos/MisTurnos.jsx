@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { turns } from '../../db/myTurns';
-import { getAllAppointments} from '../../helpers';
+import { getAllAppointments} from '../../../helpers/peticions';
 
 export default function MisTurnos() {
   const [misTurnos, setMisTurnos] = useState([]);

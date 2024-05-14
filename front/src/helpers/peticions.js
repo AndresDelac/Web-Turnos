@@ -14,27 +14,27 @@ export async function postAppointment(appointment){
     return response.data
 }
 
-export async function deleteAppointment(id){
-    const response = await axios.delete(`http://localhost:8080/appointments/${id}`)
+export async function updateAppointment(id){
+    const response = await axios.put(`http://localhost:8080/appointments/${id}`)
     return response.data
 }
 
 export async function getUsers(){
-    const response = await axios.get('http://localhost:8080/users')
+    const response = await axios.get('http://localhost:8080/user')
     return response.data
 }
 
 export async function getUserById(id){
-    const response = await axios.get(`http://localhost:8080/users/${id}`)
+    const response = await axios.get(`http://localhost:8080/user/${id}`)
     return response.data
 }
 
-export async function postUser(user){
-    const response = await axios.post('http://localhost:8080/users/register', user)
+export async function postUserRegister(user){
+    const response = await axios.post('http://localhost:8080/user/register', user)
     return response.data
 }
 
-export async function postUser(user){
-    const response = await axios.post('http://localhost:8080/users/login', user)
+export async function logInUser(user){
+    const response = await axios.post('http://localhost:8080/user/login', user)
     return response.data
 }

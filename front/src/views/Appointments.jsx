@@ -1,4 +1,4 @@
-import MisTurnos from "../components/primary/MisTurnos"
+import MisTurnos from "../components/primary/misTurnos/MisTurnos"
 
 export default function Appointments(){
 

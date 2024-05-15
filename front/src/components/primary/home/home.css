@@ -1,0 +1,16 @@
+main{
+    background-color: #242424;
+    
+    height: 1000px;
+}
+
+.title-1{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 0.5cm;
+}
+/* 
+body{
+    background: url("../../../assets/castillo alto.jpg")no-repeat;
+    background-size: cover;
+} */

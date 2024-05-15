@@ -1,22 +1,43 @@
-import { useState } from "react";
+import { addUser } from "../../../redux/reducer";
+import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { setLoggedInUser } from "../../../redux/reducer";
+import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import './loginStyles.css';
+import styles from './login.module.css';
 import { logInUser } from "../../../helpers/peticions";
 import logInSchema from "./validate";
 
-export default function Login(){
-    function handleSubmit({ username, password, repeatPassword }) { 
-        const user = { username, password, repeatPassword };
+export default function Login() {
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const navigate = useNavigate();
 
+    function handleSubmit({ username, password, repeatPassword }) {
+        const user = { username, password, repeatPassword };
+        console.log(user);
+        
         logInUser(user)
-        .then((res) => {alert(res.message);
-            
-        localStorage.setItem("userId", res.id)})
-        .catch(err => console.log(err));
+            .then((res) => {
+                alert(res.message);
+                localStorage.setItem("userId", res.id);
+                console.log(res.id);
+                dispatch(addUser(res)); 
+                dispatch(setLoggedInUser(true));
+                navigate("/")
+            })
+            .catch(err => console.log(err));
     }
+
+    if(isLoggedIn){
+        navigate.push("/Citas");
+        return null;
+    }
+
+
     return (
-        <div className="container">
-            <h1>LOGIN</h1>
+        <section className={styles.container1}>
+        
             <Formik
             initialValues={{
                 username: "",
@@ -27,132 +48,41 @@ export default function Login(){
             onSubmit={handleSubmit}>
 
                 {()=> (
-                <Form className="form">
-
+                    
+                    //RENDER
+                <div className={styles.form}>
+                <Form>
+                        <h1>LOGIN</h1>
+                    <div className={styles.inputContainer}>
+                    <Field type="text" name="username"/>
                     <label htmlFor="username">Username</label>
-                    <Field type="text" name="username" className="input"/>
-                    <ErrorMessage name="username" component="div" className="error"/>
+                    <ErrorMessage name="username" component="div" className={styles.error}/>
+                    </div>
 
-                    <label htmlFor="password">Password</label>
+                    <div className={styles.inputContainer}>                  
                     <Field type="password" name="password" className="input"/>
-                    <ErrorMessage name="password" component="div" className="error"/>
+                    <label htmlFor="password">Password</label>
+                    <ErrorMessage name="password" component="div" className={styles.error}/>
+                    </div>
 
+                    <div className={styles.inputContainer}>
+                    <Field type="password" name="repeatPassword" className="input"/>
                     <label htmlFor="repeatPassword">Repeat password</label>
-                    <Field type="repeatPassword" name="repeatPassword" className="input"/>
-                    <ErrorMessage name="repeatPassword" component="div" className="error"/>
+                    <ErrorMessage name="repeatPassword" component="div" className={styles.error}/>
+                    </div>
 
-                    <button type="submit" className="submitBtn">Log In</button>
-
+                    <div>
+                    <button type="submit" className={styles.submitBtn}>
+                        Log In
+                        </button>
+                    </div>
                 </Form>
-
+                </div>
                 )}
+
             </Formik>
-        </div>
+        </section>
     )
 }
-
-
-
-
-
-
-
-// const [userData, setUserData] = useState({
-//     username: "",
-//     password: ""
-// });
-// // console.log(userData);
-
-// const [errors, setErrors] = useState({
-//     username: "Username is required",
-//     password: "Password is required"
-// })
-// // console.log(errors);
-
-
-// const handlerInputChange = (event) => {
-// // console.log(event);
-
-// const { name, value } = event.target;
-// setUserData({
-//    ...userData,
-//     [name]: value
-// });
-
-// const errors = validate(userData);
-// setErrors(errors);
-// }
-
-// const handlerSubmit = (event) => {
-//     event.preventDefault();
-//     alert(`username: ${userData.username} Password: ${userData.password}`);
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

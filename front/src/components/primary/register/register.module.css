@@ -1,0 +1,85 @@
+.container1{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    min-height: 100vh;
+    color: black;
+}
+
+.form{
+    position: relative;
+    width: 500px;  
+    border: 2px solid rgba(255, 255, 255, .6);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    height: 780px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form h1{
+    font-size: 2.3rem;
+    color: #fff;
+    text-align: center;
+}
+.error{
+    color: rgb(201, 29, 29);
+}
+
+.formDate{
+    margin-top: 8px;
+}
+
+.inputContainer{
+    position: relative;
+    margin: 30px 0;
+    width: 340px;
+    border-bottom: 2px solid #fff;
+}
+
+.inputContainer label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: .9s;
+    font-family: bold;
+}
+
+input:focus ~ label,
+input:valid ~ label{
+    top: -5px;
+}
+
+.inputContainer input{
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: - 35px 0 5px;
+    color: #fff;
+}
+
+.submitBtn{
+    width: 100%;
+    height: 45px;
+    border-radius: 40px;
+    background: #000000;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    font-size: 1rem;
+    transition: 2s;
+}
+.submitBtn:hover{
+    opacity: .4;
+}

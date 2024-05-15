@@ -1,0 +1,22 @@
+.cabezera{
+    background-color: #fff;
+    display: flex;
+    gap: 25px;
+    background-color:#FE4A47;
+    font-size: 25px;
+    padding: 20px;
+}
+.title{
+    color: #fff;
+}
+
+.btns{
+    font-size: 16px;
+    color:#fff;
+    border: solid 1px white ;
+    border-radius: 12px;
+    margin-left: 25px;
+    padding: 6px;
+    background-color:#FE4A47; 
+}
+

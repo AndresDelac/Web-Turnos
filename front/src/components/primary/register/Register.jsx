@@ -2,21 +2,32 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import validate from "./validate";
 import { postUserRegister } from "../../../helpers/peticions";
+import styles from "./register.module.css";
+import { Navigate } from "react-router";
 
 
-export default function Register(){
-    function handleSubmit({ name, email, birthdate, dni_number, username, password, }) { 
-        const user = { name, email, birthdate, dni_number, username, password};
+import { useNavigate } from 'react-router-dom';
+
+export default function Register() {
+    const navigate = useNavigate();
+
+    function handleSubmit({ name, email, birthdate, dni_number, username, password }) { 
+        const user = { name, email, birthdate, dni_number, username, password };
 
         postUserRegister(user)
-        .then(res => console.log(res))
+        .then((res) => {
+            alert(res.message);
+            localStorage.setItem("userId", res.id);
+            navigate("/LogIn");
+        })
         .catch(err => console.log(err));
     }
 
 
+
+
 return (
-    <div className="container">
-        <h1 className="">REGISTER</h1>
+    <section className={styles.container1}>
         <Formik
             initialValues={{
                 name: "",
@@ -29,50 +40,65 @@ return (
             }}
             validate={validate}
             onSubmit={handleSubmit}>
+
             {() => (
+                
+                <div className={styles.form}>
+
                 <Form className="form">
-                    <label htmlFor="name">Name</label>
+                <h1 className="">REGISTER</h1>
+                    <div className={styles.inputContainer}>
                     <Field type="text" name="name" className="input"/>
-                    <ErrorMessage name="name" component="div" className="error"/>
-
+                    <label htmlFor="name">Name</label>
+                    <ErrorMessage name="name" component="div" className={styles.error}/>
+                    </div>
                     
-                    <label htmlFor="email">Email</label>
+                    <div className={styles.inputContainer}>
                     <Field type="email" name="email" className="input"/>
-                    <ErrorMessage name="email" component="div" className="error"/>
+                    <label htmlFor="email">Email</label>
+                    <ErrorMessage name="email" component="div" className={styles.error}/>
+                    </div>
 
-
+                    <div className={styles.inputContainer}>
+                    <Field type="date" name="birthdate" className={styles.formDate} cals/>
                     <label htmlFor="birthdate">Birthdate</label>
-                    <Field type="date" name="birthdate" className="input"/>
-                    <ErrorMessage name="birthdate" component="div" className="error"/>
+                    <ErrorMessage name="birthdate" component="div" className={styles.error}/>
+                    </div>
 
-
-                    <label htmlFor="dni_number">DNI</label>
+                    <div className={styles.inputContainer}>
                     <Field type="number" name="dni_number" className="input"/>
-                    <ErrorMessage name="dni_number" component="div" className="error"/>
+                    <label htmlFor="dni_number">DNI</label>
+                    <ErrorMessage name="dni_number" component="div" className={styles.error}/>        
+                    </div>
 
-
-                    <label htmlFor="username">Username</label>
+                    <div className={styles.inputContainer}>
                     <Field type="text" name="username" className="input"/>
-                    <ErrorMessage name="username" component="div" className="error"/>
+                    <label htmlFor="username">Username</label>
+                    <ErrorMessage name="username" component="div" className={styles.error}/>
+                    </div>
 
-
-                    <label htmlFor="password">Password</label>
+                    <div className={styles.inputContainer}>
                     <Field type="password" name="password" className="input"/>
-                    <ErrorMessage name="password" component="div" className="error"/>
+                    <label htmlFor="password">Password</label>
+                    <ErrorMessage name="password" component="div" className={styles.error}/>
+                    </div>
 
-
-                    <label htmlFor="repeatPassword">Repeat password</label>
+                    <div className={styles.inputContainer}>
                     <Field type="password" name="repeatPassword" className="input"/>
-                    <ErrorMessage name="repeatPassword" component="div" className="error"/>
-
+                    <label htmlFor="repeatPassword">Repeat password</label>
+                    <ErrorMessage name="repeatPassword" component="div" className={styles.error}/>
+                    </div>
+                    
                     <button 
-                        type="submit" className="submitBtn">Submit
+                        type="submit" className={styles.submitBtn}>Submit
                     </button>
 
                 </Form>
+            </div>
+
             )}
         
-           </Formik>
-    </div>
+        </Formik>
+    </section>
 )
 }

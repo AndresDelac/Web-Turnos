@@ -1,22 +1,36 @@
 import { useSelector } from 'react-redux';
-import { updateAppointment } from '../../../helpers/peticions'; 
+import { getUserById, updateAppointment } from '../../../helpers/peticions'; 
 import { useDispatch } from 'react-redux';
 import styles from "./turnos.module.css";
-import { cancelAppointments } from '../../../redux/slice';
+import { cancelAppointments, updateAppointments } from '../../../redux/slice';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function MisTurnos() {
+  const  userId = useSelector ((state)=> state.userId)
 
   const appointments = useSelector((state) => state.appointments );
+
   
   const dispatch = useDispatch();
 
+  useEffect(()=> { 
+    return async () => {
+      const  res = await getUserById(userId)
+      dispatch (updateAppointments(res.appointments))
+    
+    }
+  }, [])
 
   const handleCancelAppointment = async (appointmentId) => {
     console.log(appointmentId);
     try {
-      const response = await updateAppointment(appointmentId);
-      dispatch(cancelAppointments(appointmentId));
+      await updateAppointment(appointmentId)
+      const  res = await getUserById(userId)
+      dispatch (updateAppointments(res.appointments))
+      // dispatch(cancelAppointments(appointmentId));
+      // const response = await updateAppointment(appointmentId); 
       alert("Cita cancelada");
       
     } catch (error) {

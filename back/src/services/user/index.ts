@@ -36,7 +36,7 @@ async function postUserService (user: UserDto): Promise<User | InsertResult>{
         username: user.username,
         password: user.password 
     });
-    const newUser = AppDataSource.manager.save(User, {
+    const newUser = await AppDataSource.manager.save(User, {
         name: user.name,
         email: user.email,
         birthdate: user.birthdate,
@@ -60,7 +60,7 @@ async function putUserService (credentials: ICredential){
         })
         return user;
     } catch (error: any) {
-        throw new Error(error)
+        throw new Error(error.message)
     }
 }
 

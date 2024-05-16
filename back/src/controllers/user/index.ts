@@ -26,7 +26,7 @@ async function postUserController(req:Request, res:Response){
     try {
         const user = req.body;
         const newUser = await postUserService(user);
-        res.status(201).json({ message: "User registered", newUser });
+        if (newUser) res.status(201).json({ message: "User registered", newUser });
 
     } catch (error: any) {
         res.status(400).json({ message: error.message })
@@ -39,7 +39,7 @@ async function putUserController (req:Request, res:Response){
         const user = await putUserService(credentials);
         res.status(201).json({ message: "User logged", user })
     } catch (error: any) {
-        res.status(400).json({ message: error.message })
+        res.status(404).json({ message: error.message })
     }
 }
 

@@ -9,6 +9,6 @@ routeUser.get("/:id", getUserByIdController)
 
 routeUser.post("/register", checkUserRegisterDto, postUserController)
 
-routeUser.post("/login",ChekUserLogin, putUserController)
+routeUser.post("/login", ChekUserLogin, putUserController)
 
 export default routeUser;

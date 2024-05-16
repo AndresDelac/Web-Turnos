@@ -10,6 +10,6 @@ appointments.get("/:id", getAppointmentByIdController)
 
 appointments.post("/schedule", checkAppointmentDto, postAppointmentController)
 
-appointments.put("/update/:id", putAppointmentController)
+appointments.put("/cancel/:id", putAppointmentController)
 
 export default appointments

@@ -29,18 +29,22 @@ async function checkUserRegisterDto(
             
            await validateUsername(username)
 
-            next();
         }
     } catch (error:any) {
-      res.status(500).json({ message: error.message })  
+        throw error  
     }
+    next();
 }
 
 async function validateUsername(username:string) {
-    const isRegistered = await credentialRepository.validateUser(username)
-    if (!isRegistered) {
-     throw new Error("User already registered")
-
+    try {
+    const userExist = await credentialRepository.validateUser(username)
+    if (userExist) {
+        throw new Error(`Username ${username} already exists`)
+    }
+    
+} catch (error) {
+        throw error
     }
 }
 
@@ -63,14 +67,14 @@ async function ChekUserLogin(
             if (missingKeys.length > 0) {
                 throw new Error(`Missing keys: ${missingKeys.join(', ')}`)
             }
-
-            await validateUsername(username)
             
-            next();
+            
         }
     } catch (error:any) {
-        res.status(500).json({ message: error.message })
+        throw error
     }
+
+    next();
 }
 
 export {

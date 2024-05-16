@@ -21,7 +21,7 @@ export default function Login() {
             dispatch(updateAppointments(res.user.appointments))
             navigate("/");
         })
-        .catch((err)=> console.error(err))
+        .catch((err)=> alert(err.response.data.message));
     }
 
     return (

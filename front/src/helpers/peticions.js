@@ -10,14 +10,14 @@ export async function getAppointmenById(id){
 }
 
 export async function postAppointment(appointment, id){
-    console.log(appointment);
+
     const response = await axios.post(`http://localhost:8080/appointments/schedule`, {...appointment, userId: id})
     console.log(response);
     return response.data
 }
 
 export async function updateAppointment(id){
-    const response = await axios.put(`http://localhost:8080/appointments/update/${id}`)
+    const response = await axios.put(`http://localhost:8080/appointments/cancel/${id}`)
     return response.data
 }
 
@@ -33,6 +33,7 @@ export async function getUserById(id){
 
 export async function postUserRegister(user){
     const response = await axios.post('http://localhost:8080/user/register', user)
+    console.log(response);
     return response.data
 }
 

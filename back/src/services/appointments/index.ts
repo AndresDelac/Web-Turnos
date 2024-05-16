@@ -38,7 +38,6 @@ try {
 }
 
 async function postAppointmentService(appointment: AppointmentDto) {
-    console.log(appointment);
     
     try {
         const user = await AppDataSource.getRepository(User).findOne({
@@ -57,6 +56,8 @@ async function postAppointmentService(appointment: AppointmentDto) {
         if (!newAppointment) {
             throw new Error("Appointment not created");
         }
+        console.log(newAppointment);
+        
         return newAppointment;
     } catch (error: any) {
         throw new Error(error);

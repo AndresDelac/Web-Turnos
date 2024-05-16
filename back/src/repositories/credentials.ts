@@ -7,6 +7,8 @@ export const credentialRepository = AppDataSource.getRepository(Credential).exte
         const user = await this.findOneBy({ username })
         if(user){
             return true
+        }else{
+            return false
         }
     }
 })

@@ -23,9 +23,10 @@ export async function checkAppointmentDto (
                 throw new Error(`Missing keys: ${missingKeys.join(', ')}`)
             }
             
-            next();
+            
         }
     } catch (error:any) {
         res.status(500).json({ message: error.message })  
     }
+    next();
 }

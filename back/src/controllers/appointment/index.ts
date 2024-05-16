@@ -25,6 +25,7 @@ async function getAppointmentByIdController(req:Request, res:Response){
 async function postAppointmentController(req:Request, res:Response){
     try {
         const appointment : AppointmentDto = req.body;
+        console.log(appointment)
         const newAppointment = await postAppointmentService(appointment);
         res.status(201).json({ message: "Appointment created", cita: newAppointment });
     } catch (error:any) {

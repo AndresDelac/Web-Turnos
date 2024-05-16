@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./navBar.module.css"
+import { useSelector } from "react-redux"
 export default function NavBar() {
+    const  userId = useSelector ((state)=> state.userId)
+
     return (
         <header>
             <div className={styles.cabezera}>
@@ -19,13 +22,11 @@ export default function NavBar() {
                 </button >
                 </Link>
 
-                <Link to={"/Citas"}>
+            {userId !== 0 ? <Link to={"/Citas"}>
                 <button className ={styles.btns}>
                     Mis Citas
                 </button>
-                </Link>
-                
-                <Link to={"/LogIn"}>
+                </Link> :  <> <Link to={"/LogIn"}>
                 <button className ={styles.btns}>
                     Inicia sesion
                 </button>
@@ -36,6 +37,11 @@ export default function NavBar() {
                     Registrate
                 </button>
                 </Link>
+                </>
+                }
+
+                
+
 
 
             </div>

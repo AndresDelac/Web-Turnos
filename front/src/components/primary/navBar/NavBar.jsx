@@ -13,9 +13,9 @@ export default function NavBar() {
                 </button>
                 </Link>
                 
-                <Link to={"/Schedule"}>
+                <Link to={"/AboutUs"}>
                 <button className ={styles.btns}>
-                    Agendar
+                About Us
                 </button >
                 </Link>
 

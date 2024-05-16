@@ -1,6 +1,17 @@
 main{
     max-height: 2000px;
 }
+.title1{
+    text-align: center;
+    font-size: 30px;
+    margin: 2cm;
+}
+.logInAlert{
+    font-size: xx-large;
+    text-align: center;
+    margin: 60px;
+    color: red;
+}
 .cita{
     margin-top: 10px;
     margin: 10px;

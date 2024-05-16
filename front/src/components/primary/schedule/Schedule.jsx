@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { postAppointment, updateAppointment } from "../../../helpers/peticions";
 import validateApointment from "./validate";
 import { useDispatch, useSelector } from "react-redux";
+import styles from "./schedule.module.css"
 
 
 export default function Schedule() {
@@ -39,7 +40,7 @@ export default function Schedule() {
   return (
     <main>
     <div className="container">
-      <h1>Agendar Cita</h1>
+      <h1 className={styles.title1}>Agendar Cita</h1>
       <Formik
         initialValues={{
           date: "",
@@ -51,23 +52,29 @@ export default function Schedule() {
       >
         {() => (
           <Form className="form">
+            <div className={styles.campos}>
             <label htmlFor="date">Fecha</label>
-            <Field type="date" name="date" className="input" />
+            <Field type="date" name="date" className={styles.input} />
             <ErrorMessage name="date" component="div" className="error" />
+            </div>
 
+            <div className={styles.campos}>
             <label htmlFor="time">Hora</label>
-            <Field type="time" name="time" className="input" />
+            <Field type="time" name="time" className={styles.input} />
             <ErrorMessage name="time" component="div" className="error" />
+            </div>
 
+            <div className={styles.campos}>
             <label htmlFor="description">Descripcion</label>
-            <Field type="text" name="description" className="input" />
+            <Field type="text" name="description" className={styles.input} />
             <ErrorMessage
               name="description"
               component="div"
               className="error"
             />
+            </div>
 
-            <button type="submit" className="submitBtn">
+            <button type="submit" className={styles.submitBtn}>
               Agendar
             </button>
           </Form>
@@ -77,115 +84,4 @@ export default function Schedule() {
     </main>
   );
 }
-
-  
-//     const userId = useSelector((state)=> state.userId)
-
-// const [appointment, setAppointment] = useState({
-//     date:"",
-//     time:"",
-//     description:"",
-// });
-
-// const [errors, setErrors] =useState({
-//     date:"",
-//     time:"",
-//     description:"",
-// })
-
-// function handleChange(e) {
-//     const newAppointment = {...appointment, [e.target.name]:e.target.value};
-//     const validateErrors = validateAppointment(newAppointment);
-//     setErrors({...validateErrors})
-// }
-
-// function handleSubmit (e) {
-//     e.preventEventDefault();
-//     if (Object.keys(errors).length === 0) {
-//         postAppointment(appointment, userId)
-//         .then((res) => {
-//             alert(res.message);
-//             setAppointment({
-//                 date:"",
-//                 time:"",
-//                 description:"",
-//             });
-//         })
-//         .catch((err)=> alert(err.message));
-//     }else {
-//         alert ("Revisa, hay errores en el formulario")
-//     }
-// }
-
-
-
-// return (
-//     <form className="" onSubmit={handleSubmit}>
-//         <label htmlFor="date">
-//             Date:
-//             <input 
-//                 type="date" 
-//                 name="date"
-//                 value={appointment.date}
-//                 onChange={handleChange}
-//                 className=""
-//             />
-//             <p className="error">{errors.date}</p>
-//         </label>
-//         <label htmlFor="time">
-//             Date:
-//             <input 
-//                 type="time" 
-//                 name="time"
-//                 value={appointment.time}
-//                 onChange={handleChange}
-//                 className=""
-//             />
-//             <p className="error">{errors.time}</p>
-//         </label>
-//     </form>
-// )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

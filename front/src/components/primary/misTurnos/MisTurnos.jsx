@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getAllAppointments, updateAppointment } from '../../../helpers/peticions'; 
+import { updateAppointment } from '../../../helpers/peticions'; 
 import { useDispatch } from 'react-redux';
 import styles from "./turnos.module.css";
 import { cancelAppointments } from '../../../redux/slice';
@@ -30,7 +29,7 @@ export default function MisTurnos() {
   return (
     <main>
       <div>
-        <h1>Mis turnos</h1>
+        <h1 className={styles.title1}>Mis turnos</h1>
         {appointments.length > 0 ? (
           appointments.map((appointment) => (
             <div key={appointment.id} className={styles.cita}>
@@ -44,7 +43,7 @@ export default function MisTurnos() {
             </div> 
           ))
         ) : (
-          <p>No hay citas registradas </p>
+          <p className={styles.logInAlert}>No hay citas registradas </p>
         )}
       </div>
     </main>

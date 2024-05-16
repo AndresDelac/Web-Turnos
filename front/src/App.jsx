@@ -5,6 +5,7 @@ import LogInView from './views/LogInView'
 import ScheduleView from './views/ScheduleView'
 import NavBar from './components/primary/navBar/NavBar'
 import HomeView from './views/HomeView'
+import AboutUs from './components/primary/aboutUs/AboutUs'
 import { Route, Routes } from 'react-router'
 
 
@@ -15,6 +16,7 @@ function App() {
     
     <Routes>
       <Route path = "/" element = {<HomeView />} /> 
+      <Route path='/AboutUs' element ={ <AboutUs /> }></Route>
       <Route path = "/Schedule" element = {<ScheduleView />} />
       <Route path = "/LogIn" element = {<LogInView/>} />
       <Route path = "/Citas" element = {<Appointments/>}/>

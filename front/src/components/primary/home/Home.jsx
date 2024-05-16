@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import "./home.css"
+import styles from "./home.module.css"
 import { useNavigate } from 'react-router-dom';
+import Schedule from "../schedule/Schedule"
 
 export default function Home(){
 
@@ -10,23 +11,23 @@ export default function Home(){
     const userId = useSelector((state)=> state.userId)
     
     console.log(userId);
-    // useEffect(()=> {
-    // }, [userId]);
 
     return(
         <main>
-        <div>
-            <h1 className="title-1">Bienvenido!</h1>
+        <div className={styles.contenedor}>
+            <h1 className={styles.title1}>Bienvenido!</h1>
             {localStorage.getItem("userId") ? (           
-            navigate("/Schedule")
-    
+            // navigate("/Schedule")
+            <Schedule />
             ) : (
                 
-              <p>Debes estar Logeado para agendar tu cita</p>
+              <p className={styles.logInAlert}>Debes estar Logeado para agendar tu cita !</p>
 
             )}
-            <p>Hola aqui encontraras todos tus juegos al mejor precio del mercado. Contamos con un sistema de Citas para que pruebes tu videojuego antes de llevartelo.</p>
         </div>
+
+
+
         </main>
     );
 }

@@ -17,18 +17,20 @@ async function generateCredential({username, password}: ICredential): Promise<nu
     }
 }
 
-async function checkCredential({username, password}: ICredential): Promise<number | undefined> {
+async function checkCredential({username, password}: ICredential): Promise<Partial<Credential>> {
     try {
-        const credential = await AppDataSource.manager.findOneBy(Credential, { username });
-
+        const credential = await AppDataSource.getRepository(Credential).findOne({
+            where: { username },
+            select: [ "id", "password" ]
+        });
         if (!credential) {
             throw new Error("User not found")
         }
-        const isValid = comparePassword(password, credential.password);
+        const isValid = comparePassword(password, credential.password); 
         if (!isValid) {
             throw new Error("Invalid credentials")
         }
-        return credential.id
+        return { id: credential.id, username: credential.username };
     } catch (error: any) {
         throw new Error(error)
     }

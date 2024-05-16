@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getAllAppointments, getAppointmentByIdController, postAppointmentController, putAppointmentController } from "../../controllers/appointment";
+import { checkAppointmentDto } from "../../middlewares/appoinment";
 
 const appointments: Router = Router()
 
@@ -7,8 +8,8 @@ appointments.get("/", getAllAppointments)
 
 appointments.get("/:id", getAppointmentByIdController)
 
-appointments.post("/schedule", postAppointmentController)
+appointments.post("/schedule", checkAppointmentDto, postAppointmentController)
 
-appointments.post("/update", putAppointmentController)
+appointments.put("/update/:id", putAppointmentController)
 
 export default appointments

@@ -5,12 +5,11 @@ import { User } from "../../entities/user"
 import { IUser, UserDto } from "../../types/user"
 import { checkCredential, generateCredential } from "../credentials" 
 import { ICredential } from "../../types"
-
+       
+const userRepository = AppDataSource.getRepository(User);
 async function getAllUsersService (): Promise<User[]> {
    try {
-     const users = await AppDataSource.manager.getRepository(User).find({
-        relations: ["credentials", "appointments"],
-     });
+     const users = await AppDataSource.manager.getRepository(User).find({relations: ["credentials","appointments"],});
      return users;
    } catch (error: any) {
     throw new Error ("Error al obtener todos los usuarios");
@@ -18,14 +17,17 @@ async function getAllUsersService (): Promise<User[]> {
 }
 
 
-async function getUserByIdService (id: number): Promise<User | null>{
-   try {
-    const user = await AppDataSource.manager.findOneBy(User, { id });
-    
-    return user
-   }catch (error: any) {
-    throw new Error(error)
-   }
+async function getUserByIdService(id: number): Promise<User | null> {
+    try {
+        const user = await AppDataSource.getRepository(User).findOne({
+            where: { id },
+            relations: ["credentials","appointments"],
+        });
+        if (!user) throw new Error(`El usuario con id: ${id} no existe`)
+        return user;
+    } catch (error:any) {
+        throw new Error(error);
+    }
 }
 
 async function postUserService (user: UserDto): Promise<User | InsertResult>{
@@ -51,7 +53,12 @@ catch(error: any ){
 
 async function putUserService (credentials: ICredential){
     try {
-        return await checkCredential(credentials);
+        const credential = await checkCredential(credentials);
+        const user = await userRepository.findOne({
+            where: { credentials: {id: credential.id} },
+            relations: ["appointments"],
+        })
+        return user;
     } catch (error: any) {
         throw new Error(error)
     }

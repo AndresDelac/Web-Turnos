@@ -9,6 +9,7 @@ import { Navigate } from "react-router";
 import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
+    
     const navigate = useNavigate();
 
     function handleSubmit({ name, email, birthdate, dni_number, username, password }) { 
@@ -17,7 +18,7 @@ export default function Register() {
         postUserRegister(user)
         .then((res) => {
             alert(res.message);
-            localStorage.setItem("userId", res.id);
+            // localStorage.setItem("userId", res.id);
             navigate("/LogIn");
         })
         .catch(err => console.log(err));

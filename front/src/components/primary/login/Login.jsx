@@ -1,39 +1,28 @@
-import { addUser } from "../../../redux/reducer";
-import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { setLoggedInUser } from "../../../redux/reducer";
 import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import styles from './login.module.css';
 import { logInUser } from "../../../helpers/peticions";
 import logInSchema from "./validate";
+import { setUserId, updateAppointments } from '../../../redux/slice';
 
 export default function Login() {
+
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     function handleSubmit({ username, password, repeatPassword }) {
-        const user = { username, password, repeatPassword };
-        console.log(user);
-        
-        logInUser(user)
-            .then((res) => {
-                alert(res.message);
-                localStorage.setItem("userId", res.id);
-                console.log(res.id);
-                dispatch(addUser(res)); 
-                dispatch(setLoggedInUser(true));
-                navigate("/")
-            })
-            .catch(err => console.log(err));
+        logInUser({username, password})
+        .then((res)=> {
+            alert(res.message);
+            console.log(res);
+            localStorage.setItem("userId", res.user.id)
+            dispatch(setUserId(res.user.id));
+            dispatch(updateAppointments(res.user.appointments))
+            navigate("/");
+        })
+        .catch((err)=> console.error(err))
     }
-
-    if(isLoggedIn){
-        navigate.push("/Citas");
-        return null;
-    }
-
 
     return (
         <section className={styles.container1}>

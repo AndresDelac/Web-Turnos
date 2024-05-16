@@ -42,7 +42,8 @@ async function postAppointmentService(appointment: AppointmentDto) {
     
     try {
         const user = await AppDataSource.getRepository(User).findOne({
-            where: { id: appointment.userId }
+            where: { id: appointment.userId },
+            relations: ["appointments"]
         });
         if (!user) {
             throw new Error(`User for this appointment not found ${user}`);
@@ -63,27 +64,30 @@ async function postAppointmentService(appointment: AppointmentDto) {
 }
 
 
-async function putAppointmentService (id: number){
+async function putAppointmentService(id: number) {
     try {
-        const appointment = appointmentRepositoryLocal.findOne({
+        const appointment = await appointmentRepositoryLocal.findOne({
             where: { id },
             relations: ["user"]
         });
+
         if (!appointment) {
-            throw new Error("Appointment not found")
-        };
-        const updateAppointment = await appointmentRepositoryLocal.save({
-            ...appointment,
-            status: Status.CANCELED
-        });        
+            throw new Error("Appointment not found");
+        }
+
+        appointment.status = Status.CANCELED;
+        const updateAppointment = await appointmentRepositoryLocal.save(appointment);
+
         if (!updateAppointment) {
-            throw new Error("Appointment not cancelled")
-        };
+            throw new Error("Appointment not cancelled");
+        }
+
         return updateAppointment;
-    } catch (error:any) {
-        throw new Error(error)
+    } catch (error: any) {
+        throw new Error(error);
     }
 }
+
 
 export {
     getAllAppointmentsService,

@@ -9,9 +9,10 @@ export async function getAppointmenById(id){
     return response.data
 }
 
-export async function postAppointment(appointment){
-
-    const response = await axios.post(`http://localhost:8080/appointments/schedule`, appointment)
+export async function postAppointment(appointment, id){
+    console.log(appointment);
+    const response = await axios.post(`http://localhost:8080/appointments/schedule`, {...appointment, userId: id})
+    console.log(response);
     return response.data
 }
 

@@ -13,7 +13,7 @@
         "sourceMap": true,
         "strictPropertyInitialization": false, 
     },
-    "include": ["src/**/*.ts"],
+    "include": ["src/**/*.ts", "src/repositories/user"],
     "exclude": ["node_modules"],
     "files": ["./src/index.ts"]
 }

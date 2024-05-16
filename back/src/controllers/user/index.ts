@@ -16,7 +16,7 @@ async function getAllUsers (req: Request, res:Response){
         const {id} = req.params;
         const user = await getUserByIdService(Number(id));
         if (user) res.status(200).json(user)
-            else res.status(404).json({ message: "User not Found" })
+            // else res.status(404).json({ message: "User not Found" })
        } catch (error: any) {
         res.status(404).json({ message: error.message })
        }
@@ -36,8 +36,8 @@ async function postUserController(req:Request, res:Response){
 async function putUserController (req:Request, res:Response){
     try {
         const credentials: CredentialDto = req.body;
-        const id = await putUserService(credentials);
-        res.status(201).json({ message: "User logged", id })
+        const user = await putUserService(credentials);
+        res.status(201).json({ message: "User logged", user })
     } catch (error: any) {
         res.status(400).json({ message: error.message })
     }
